@@ -9,7 +9,7 @@ from datetime import timedelta
 
 
 class stockPredict():
-    
+    #initiated base variables and check the csv data files
     def __init__(self):
         self.data_dir = 'data'
         self.model_dir = 'models'
@@ -20,7 +20,7 @@ class stockPredict():
             if stock_file.endswith('.csv'):
                 self.process_stock(stock_file)
 
-    # Creating datasets
+    # Creating datasets and return numpy matrix
     def create_dataset(self, data, time_step=60):
         X, y = [], []
         for i in range(len(data) - time_step - 1):
@@ -28,7 +28,7 @@ class stockPredict():
             y.append(data[i + time_step, 0])
         return np.array(X), np.array(y)
 
-    # Function to process each stock
+    # Function to process, train and show individual stock
     def process_stock(self, stock_filename):
         model_filename = os.path.join(self.model_dir, f"{os.path.splitext(stock_filename)[0]}_lstm_model.h5")
 
